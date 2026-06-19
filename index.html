@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Elmehdi Hassani — Software QA Engineer</title>
+<meta name="description" content="Elmehdi Hassani — Ingénieur QA & automatisation des tests. Selenium, Playwright, Robot Framework, CI/CD. Portfolio bilingue FR/EN." />
+<meta property="og:title" content="Elmehdi Hassani — Software QA Engineer" />
+<meta property="og:description" content="Ingénieur QA spécialisé en automatisation des tests et qualité logicielle." />
+<meta property="og:image" content="assets/profile_wide.jpg" />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230A0E17'/%3E%3Cpath d='M9 16.5l4 4 10-10' stroke='%235BFFC7' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0A0E17;--ink-2:#0D1320;--panel:#111726;--panel-2:#0F1521;
+    --line:#1E2940;--line-soft:#172033;--cyan:#2DE2E6;--violet:#7B61FF;
+    --pass:#5BFFC7;--wa:#25D366;--text:#E6EAF4;--muted:#8A93A8;--muted-2:#5C6680;
+    --mono:'JetBrains Mono',ui-monospace,monospace;--display:'Space Grotesk',system-ui,sans-serif;
+    --body:'Inter',system-ui,sans-serif;--maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ink);color:var(--text);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--cyan);color:var(--ink)}
+
+  .bg{position:fixed;inset:0;z-index:-2;background:
+    radial-gradient(900px 600px at 78% -5%, rgba(123,97,255,.18), transparent 60%),
+    radial-gradient(700px 500px at 5% 10%, rgba(45,226,230,.12), transparent 55%),var(--ink)}
+  .grid{position:fixed;inset:0;z-index:-1;opacity:.5;
+    background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+    background-size:48px 48px;
+    mask-image:radial-gradient(circle at 50% 0%,#000 0%,transparent 75%);
+    -webkit-mask-image:radial-gradient(circle at 50% 0%,#000 0%,transparent 75%)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);background:rgba(10,14,23,.72);border-bottom:1px solid var(--line)}
+  .nav-in{max-width:var(--maxw);margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-weight:700;letter-spacing:.5px;font-size:14px}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--pass);box-shadow:0 0 12px var(--pass);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .nav-links{display:flex;gap:6px;font-family:var(--mono);font-size:12.5px}
+  .nav-links a{color:var(--muted);padding:7px 12px;border-radius:8px;transition:.2s}
+  .nav-links a:hover{color:var(--text);background:var(--panel)}
+  .nav-links a .hash{color:var(--cyan)}
+  .nav-right{display:flex;gap:10px;align-items:center}
+  .lang-toggle{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;font-family:var(--mono);font-size:12px}
+  .lang-toggle button{background:none;border:none;color:var(--muted);padding:7px 11px;cursor:pointer;transition:.2s}
+  .lang-toggle button.active{background:var(--cyan);color:var(--ink);font-weight:700}
+  .lang-toggle button:not(.active):hover{color:var(--text)}
+  .nav-cta{font-family:var(--mono);font-size:12.5px;color:var(--ink);background:var(--cyan);padding:8px 14px;border-radius:8px;font-weight:700;transition:.2s;white-space:nowrap}
+  .nav-cta:hover{box-shadow:0 0 24px rgba(45,226,230,.5);transform:translateY(-1px)}
+  .menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--text);border-radius:8px;padding:8px 10px;font-family:var(--mono);cursor:pointer}
+
+  header{padding:60px 0 48px}
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+  .eyebrow{font-family:var(--mono);font-size:12.5px;color:var(--cyan);letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;display:inline-flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--cyan)}
+  h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,6.4vw,76px);line-height:.98;letter-spacing:-1.5px;margin-bottom:8px}
+  h1 .light{color:var(--muted);font-weight:400}
+  .role{font-family:var(--mono);font-size:clamp(15px,2vw,19px);color:var(--text);margin-bottom:20px;letter-spacing:.5px}
+  .role .accent{color:var(--violet)}
+  .avail{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--pass);border:1px solid rgba(91,255,199,.3);background:rgba(91,255,199,.07);padding:6px 12px;border-radius:999px;margin-bottom:22px}
+  .avail .d{width:8px;height:8px;border-radius:50%;background:var(--pass);box-shadow:0 0 10px var(--pass);animation:pulse 2.4s infinite}
+  .lede{color:var(--muted);font-size:17px;max-width:48ch;margin-bottom:28px}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  .btn{font-family:var(--mono);font-size:13.5px;font-weight:500;padding:13px 20px;border-radius:10px;display:inline-flex;align-items:center;gap:9px;transition:.2s;cursor:pointer}
+  .btn-primary{background:var(--cyan);color:var(--ink);font-weight:700;border:none}
+  .btn-primary:hover{box-shadow:0 0 28px rgba(45,226,230,.45);transform:translateY(-2px)}
+  .btn-ghost{border:1px solid var(--line);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+
+  /* borderless hero photo with glow + soft fade */
+  .photo-wrap{position:relative;justify-self:end;width:100%;max-width:380px}
+  .photo-wrap::before{content:"";position:absolute;inset:-14% -10% -2% -10%;z-index:-1;
+    background:radial-gradient(58% 55% at 62% 32%, rgba(45,226,230,.30), transparent 70%),
+              radial-gradient(52% 52% at 28% 72%, rgba(123,97,255,.28), transparent 72%);
+    filter:blur(26px)}
+  .hero-photo{width:100%;display:block;border-radius:20px;animation:float 6.5s ease-in-out infinite;
+    -webkit-mask-image:linear-gradient(to bottom,#000 78%,transparent 100%);
+    mask-image:linear-gradient(to bottom,#000 78%,transparent 100%)}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+  /* console band under hero */
+  .console-band{padding:8px 0 72px}
+  .console{max-width:820px;margin:0 auto;background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    box-shadow:0 30px 80px -30px rgba(0,0,0,.7),0 0 0 1px rgba(45,226,230,.04) inset;position:relative}
+  .console::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent 50%,rgba(255,255,255,.012) 50%);background-size:100% 4px;opacity:.6}
+  .c-bar{display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.015)}
+  .c-bar .lights{display:flex;gap:7px}
+  .c-bar .lights i{width:11px;height:11px;border-radius:50%;display:block}
+  .lights i:nth-child(1){background:#FF5F57}.lights i:nth-child(2){background:#FEBC2E}.lights i:nth-child(3){background:#28C840}
+  .c-title{font-family:var(--mono);font-size:12px;color:var(--muted);margin-left:6px}
+  .c-body{font-family:var(--mono);font-size:13.5px;line-height:1.85;padding:20px 20px 22px;min-height:280px}
+  .c-line{white-space:pre-wrap;opacity:0;transform:translateY(4px);transition:opacity .35s,transform .35s}
+  .c-line.show{opacity:1;transform:none}
+  .c-prompt{color:var(--violet)}.c-cmd{color:var(--text)}.c-pass{color:var(--pass)}
+  .c-pass .check{color:var(--pass);font-weight:700}.c-dim{color:var(--muted-2)}.c-info{color:var(--cyan)}
+  .c-summary{color:var(--text);margin-top:10px;padding-top:12px;border-top:1px dashed var(--line)}
+  .c-summary .ok{color:var(--pass);font-weight:700}
+  .caret{display:inline-block;width:9px;height:16px;background:var(--cyan);vertical-align:-3px;margin-left:2px;animation:blink 1.05s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  section{padding:84px 0;position:relative}
+  .sec-head{margin-bottom:48px}
+  .sec-tag{font-family:var(--mono);font-size:12.5px;color:var(--cyan);letter-spacing:1px}
+  h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4vw,44px);letter-spacing:-1px;margin-top:8px}
+  .sec-sub{color:var(--muted);max-width:62ch;margin-top:12px}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .stat{border:1px solid var(--line);border-radius:14px;padding:22px;background:var(--panel-2);transition:.25s}
+  .stat:hover{border-color:var(--cyan);transform:translateY(-3px)}
+  .stat .n{font-family:var(--display);font-size:38px;font-weight:700;background:linear-gradient(120deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+  .stat .l{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:8px}
+
+  .suites{display:flex;flex-direction:column;gap:18px}
+  .suite{border:1px solid var(--line);border-radius:16px;background:var(--panel-2);overflow:hidden;transition:.25s}
+  .suite:hover{box-shadow:0 0 0 1px rgba(91,255,199,.12)}
+  .suite-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:22px 24px;cursor:pointer}
+  .suite-head .meta{display:flex;gap:16px;align-items:flex-start}
+  .badge-pass{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--pass);border:1px solid rgba(91,255,199,.35);background:rgba(91,255,199,.08);padding:5px 10px;border-radius:7px;white-space:nowrap;letter-spacing:.5px;display:inline-flex;align-items:center;gap:6px;margin-top:3px}
+  .badge-pass::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--pass);box-shadow:0 0 8px var(--pass)}
+  .suite h3{font-family:var(--display);font-size:20px;font-weight:600;letter-spacing:-.3px}
+  .suite .org{color:var(--cyan);font-family:var(--mono);font-size:13px;margin-top:3px}
+  .suite .when{font-family:var(--mono);font-size:12.5px;color:var(--muted);white-space:nowrap;text-align:right}
+  .head-right{display:flex;gap:18px;align-items:flex-start}
+  .chev{color:var(--muted);transition:transform .3s;flex-shrink:0}
+  .suite.open .chev{transform:rotate(90deg)}
+  .suite-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .suite.open .suite-body{max-height:720px}
+  .suite-inner{padding:0 24px 24px;border-top:1px solid var(--line-soft)}
+  .mission{color:var(--muted);font-size:15px;margin:18px 0 16px}
+  .tests{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:18px}
+  .tests li{font-family:var(--mono);font-size:13.5px;color:var(--text);display:flex;gap:11px;align-items:flex-start}
+  .tests li::before{content:"\2713";color:var(--pass);font-weight:700;flex-shrink:0}
+  .tests li span{color:var(--muted)}
+  .stack{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{font-family:var(--mono);font-size:11.5px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:var(--ink-2);transition:.2s}
+  .chip:hover{color:var(--cyan);border-color:var(--cyan)}
+
+  .matrix{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .module{border:1px solid var(--line);border-radius:16px;background:var(--panel-2);padding:24px;transition:.25s}
+  .module:hover{border-color:var(--violet)}
+  .module .mh{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .module .ic{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:rgba(45,226,230,.1);border:1px solid rgba(45,226,230,.25);color:var(--cyan);font-family:var(--mono)}
+  .module:nth-child(even) .ic{background:rgba(123,97,255,.12);border-color:rgba(123,97,255,.3);color:var(--violet)}
+  .module h4{font-family:var(--display);font-size:16px;font-weight:600}
+  .module .cnt{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--muted-2)}
+  .tags{display:flex;flex-wrap:wrap;gap:8px}
+
+  .split{display:grid;grid-template-columns:1.25fr 1fr;gap:32px;align-items:start}
+  .timeline{position:relative;padding-left:26px}
+  .timeline::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:linear-gradient(var(--cyan),var(--violet),transparent)}
+  .edu{position:relative;padding-bottom:28px}
+  .edu:last-child{padding-bottom:0}
+  .edu::before{content:"";position:absolute;left:-24px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--ink);border:2px solid var(--cyan)}
+  .edu .yr{font-family:var(--mono);font-size:12px;color:var(--cyan)}
+  .edu h4{font-family:var(--display);font-size:17px;font-weight:600;margin:4px 0 2px}
+  .edu .school{color:var(--muted);font-size:14px}
+  .langs{border:1px solid var(--line);border-radius:16px;background:var(--panel-2);padding:26px}
+  .langs h4{font-family:var(--display);font-size:17px;margin-bottom:20px}
+  .lang{margin-bottom:18px}.lang:last-child{margin-bottom:0}
+  .lang .top{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:8px}
+  .lang .top b{font-weight:600}
+  .lang .top span{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+  .bar{height:6px;border-radius:99px;background:var(--ink-2);overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:99px;width:0;background:linear-gradient(90deg,var(--cyan),var(--violet));transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+  .cert{margin-top:22px;border:1px dashed var(--line);border-radius:12px;padding:16px;font-family:var(--mono);font-size:12.5px;color:var(--muted);display:flex;gap:10px;align-items:center}
+  .cert b{color:var(--text);font-weight:500}
+
+  /* contact: form + cards */
+  .contact-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:start}
+  .form{border:1px solid var(--line);border-radius:18px;background:var(--panel-2);padding:26px}
+  .form .fh{font-family:var(--mono);font-size:12.5px;color:var(--cyan);margin-bottom:18px}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.5px;margin-bottom:7px}
+  .field input,.field textarea{width:100%;background:var(--ink-2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--text);font-family:var(--body);font-size:14.5px;transition:.2s;resize:vertical}
+  .field textarea{min-height:120px}
+  .field input::placeholder,.field textarea::placeholder{color:var(--muted-2)}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(45,226,230,.12)}
+  .form .btn-primary{width:100%;justify-content:center}
+  .form-msg{margin-top:14px;font-family:var(--mono);font-size:12.5px;min-height:18px}
+  .form-msg.ok{color:var(--pass)}.form-msg.err{color:#FF8B8B}
+
+  .contact-box{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:linear-gradient(180deg,var(--panel),var(--panel-2))}
+  .contact-top{font-family:var(--mono);font-size:12.5px;color:var(--muted);padding:15px 20px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.015)}
+  .contact-top .c-prompt{color:var(--violet)}
+  .cc{display:flex;align-items:center;gap:15px;padding:18px 20px;border-bottom:1px solid var(--line-soft);transition:.2s}
+  .cc:last-child{border-bottom:none}
+  .cc:hover{background:var(--panel)}
+  .cc .ci{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:var(--ink-2);border:1px solid var(--line);color:var(--cyan);flex-shrink:0;font-family:var(--mono);font-weight:700}
+  .cc.wa .ci{color:var(--wa);border-color:rgba(37,211,102,.35)}
+  .cc .ci svg{width:22px;height:22px}
+  .cc .lbl{font-family:var(--mono);font-size:11px;color:var(--muted-2);letter-spacing:1px}
+  .cc .val{font-size:14px;color:var(--text);word-break:break-all;font-weight:500}
+  .cc:hover .ci{color:var(--violet);border-color:var(--violet)}
+  .cc.wa:hover .ci{color:var(--wa);border-color:var(--wa)}
+
+  /* floating WhatsApp */
+  .wa-float{position:fixed;right:20px;bottom:20px;z-index:60;width:56px;height:56px;border-radius:50%;
+    background:var(--wa);display:grid;place-items:center;box-shadow:0 12px 30px rgba(37,211,102,.42);transition:.2s}
+  .wa-float:hover{transform:scale(1.08);box-shadow:0 16px 40px rgba(37,211,102,.55)}
+  .wa-float svg{width:30px;height:30px;fill:#fff}
+
+  footer{padding:40px 0 56px;border-top:1px solid var(--line);margin-top:84px;font-family:var(--mono);font-size:12.5px;color:var(--muted-2);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  footer .ok{color:var(--pass)}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:920px){
+    .hero{grid-template-columns:1fr;gap:30px}
+    .photo-wrap{justify-self:center;max-width:300px;order:-1}
+    .matrix{grid-template-columns:1fr}.split{grid-template-columns:1fr;gap:40px}
+    .contact-wrap{grid-template-columns:1fr;gap:20px}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .nav-links{display:none}.menu-btn{display:block}
+    .nav-links.open{display:flex;position:absolute;top:100%;right:24px;left:24px;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px;margin-top:8px}
+  }
+  @media(max-width:560px){
+    header{padding:40px 0 32px}
+    .stats{grid-template-columns:1fr 1fr}
+    .suite-head{flex-direction:column}.suite .when{text-align:left}
+    .nav-cta{display:none}
+    .wa-float{width:52px;height:52px;right:16px;bottom:16px}
+    .c-body{font-size:12.5px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .reveal,.c-line{opacity:1;transform:none}html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="grid"></div>
+
+<nav>
+  <div class="nav-in">
+    <a href="#top" class="brand"><span class="dot"></span>HASSANI.qa</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#about"><span class="hash">#</span><span data-i18n="nav.profil">profil</span></a>
+      <a href="#experience"><span class="hash">#</span><span data-i18n="nav.exp">parcours</span></a>
+      <a href="#skills"><span class="hash">#</span><span data-i18n="nav.skills">stack</span></a>
+      <a href="#education"><span class="hash">#</span><span data-i18n="nav.edu">formation</span></a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button data-lang="fr">FR</button><button data-lang="en">EN</button>
+      </div>
+      <a href="#contact" class="nav-cta">./contact</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">≡</button>
+    </div>
+  </div>
+</nav>
+
+<a id="top"></a>
+<header>
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <span class="eyebrow" data-i18n="hero.eyebrow">Software QA Engineer · Maroc</span>
+        <h1>Elmehdi<br><span class="light">Hassani</span></h1>
+        <div class="role">test<span class="accent">.</span>automation<span class="accent">.</span>engineer</div>
+        <div class="avail"><span class="d"></span><span data-i18n="hero.avail">Disponible pour de nouvelles opportunités</span></div>
+        <p class="lede" data-i18n="hero.lede">J'écris les tests qui empêchent les bugs d'atteindre la production. Automatisation, API, CI/CD — la qualité, validée à chaque commit.</p>
+        <div class="cta-row">
+          <a href="#contact" class="btn btn-primary" data-i18n="hero.cta1">Me contacter →</a>
+          <a href="assets/CV_Elmehdi_Hassani.pdf" download class="btn btn-ghost" data-i18n="hero.cv">Télécharger le CV ↓</a>
+        </div>
+      </div>
+      <div class="photo-wrap">
+        <img class="hero-photo" src="assets/profile__.png" alt="Elmehdi Hassani" />
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="console-band">
+  <div class="wrap">
+    <div class="console" id="console">
+      <div class="c-bar">
+        <span class="lights"><i></i><i></i><i></i></span>
+        <span class="c-title">~/portfolio — qa-runner — bash</span>
+      </div>
+      <div class="c-body" id="cbody"></div>
+    </div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag" data-i18n="about.tag">// à propos</div>
+      <h2 data-i18n="about.title">À propos</h2>
+      <p class="sec-sub" data-i18n="about.bio">Ingénieur QA passionné par la gestion de la qualité et l'automatisation des tests, toujours à la recherche de défis techniques à relever et d'opportunités pour innover.</p>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><div class="n">4+</div><div class="l" data-i18n="stat.1">missions QA &amp; automatisation</div></div>
+      <div class="stat reveal"><div class="n">3</div><div class="l" data-i18n="stat.2">secteurs : banque · télécom · fintech</div></div>
+      <div class="stat reveal"><div class="n">10+</div><div class="l" data-i18n="stat.3">frameworks de test maîtrisés</div></div>
+      <div class="stat reveal"><div class="n">E2E</div><div class="l" data-i18n="stat.4">UI · API · CI/CD multi-pays</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag" data-i18n="exp.tag">// parcours professionnel</div>
+      <h2 data-i18n="exp.title">Expérience professionnelle</h2>
+      <p class="sec-sub" data-i18n="exp.sub">Quatre missions, quatre contextes — banque, télécom et fintech. Cliquez sur une carte pour les détails.</p>
+    </div>
+    <div class="suites" id="suites">
+      <article class="suite open reveal">
+        <div class="suite-head">
+          <div class="meta"><span class="badge-pass">PASS</span>
+            <div><h3 data-i18n="e1.role">Test Automation QA</h3><div class="org">DSI · Intelcia</div></div>
+          </div>
+          <div class="head-right"><span class="when" data-i18n="e1.when">Avr. 2025 — Présent</span><span class="chev">▸</span></div>
+        </div>
+        <div class="suite-body"><div class="suite-inner">
+          <p class="mission" data-i18n="e1.mission">Stratégie d'automatisation E2E pour des applications de gestion des agents de service client, déployées par pays dans un contexte Agile &amp; CI/CD.</p>
+          <ul class="tests">
+            <li data-i18n-html="e1.t1">conçoit et exécute des tests fonctionnels et API en BDD, gérés via <span>Xray</span></li>
+            <li data-i18n-html="e1.t2">met en place une automatisation E2E multi-pays pour stabiliser les parcours critiques</li>
+            <li data-i18n-html="e1.t3">améliore en continu le pipeline CI/CD avec les équipes Dev, Métier et Ops internationales</li>
+          </ul>
+          <div class="stack"><span class="chip">Selenide</span><span class="chip">Karate</span><span class="chip">Katalon</span><span class="chip">GitLab</span><span class="chip">Cucumber</span><span class="chip">Jira Xray</span><span class="chip">JUnit</span></div>
+        </div></div>
+      </article>
+      <article class="suite reveal">
+        <div class="suite-head">
+          <div class="meta"><span class="badge-pass">PASS</span>
+            <div><h3 data-i18n="e2.role">Ingénieur QA</h3><div class="org">Intelcia IT Solutions</div></div>
+          </div>
+          <div class="head-right"><span class="when" data-i18n="e2.when">Fév. 2024 — Avr. 2025</span><span class="chev">▸</span></div>
+        </div>
+        <div class="suite-body"><div class="suite-inner">
+          <p class="mission" data-i18n="e2.mission">Stratégies d'automatisation pour optimiser la qualité et la performance des applications critiques d'un opérateur télécom français.</p>
+          <ul class="tests">
+            <li data-i18n-html="e2.t1">définit et exécute une stratégie d'automatisation fiabilisant les applications métier</li>
+            <li data-i18n-html="e2.t2">analyse les exigences fonctionnelles et techniques pour concevoir des plans de test optimisés</li>
+            <li data-i18n-html="e2.t3">développe et maintient des tests <span>(Page Object Model, BDD, Data-Driven, Hybrid)</span></li>
+            <li data-i18n-html="e2.t4">valide les API et l'intégration continue via GitLab CI/CD</li>
+            <li data-i18n-html="e2.t5">suit les anomalies et accélère les cycles de livraison</li>
+          </ul>
+          <div class="stack"><span class="chip">Playwright</span><span class="chip">Postman</span><span class="chip">GitLab</span><span class="chip">Cucumber</span><span class="chip">Jira Xray</span><span class="chip">JUnit</span></div>
+        </div></div>
+      </article>
+      <article class="suite reveal">
+        <div class="suite-head">
+          <div class="meta"><span class="badge-pass">PASS</span>
+            <div><h3 data-i18n="e3.role">Ingénieur en Automatisation des Tests</h3><div class="org">DZ Advisory</div></div>
+          </div>
+          <div class="head-right"><span class="when" data-i18n="e3.when">Juin — Sept. 2023</span><span class="chev">▸</span></div>
+        </div>
+        <div class="suite-body"><div class="suite-inner">
+          <p class="mission" data-i18n="e3.mission">Création d'un robot d'automatisation des tests pour un progiciel bancaire.</p>
+          <ul class="tests">
+            <li data-i18n-html="e3.t1">analyse en détail les spécifications fonctionnelles</li>
+            <li data-i18n-html="e3.t2">transforme les cas de test manuels en scripts <span>(Keyword-Driven, Data-Driven, Hybrid)</span></li>
+            <li data-i18n-html="e3.t3">identifie et gère les anomalies de façon proactive</li>
+            <li data-i18n-html="e3.t4">conçoit des robots de génération automatique de scripts de test</li>
+          </ul>
+          <div class="stack"><span class="chip">Robot Framework</span><span class="chip">Selenium</span><span class="chip">Docker</span><span class="chip">Batch</span></div>
+        </div></div>
+      </article>
+      <article class="suite reveal">
+        <div class="suite-head">
+          <div class="meta"><span class="badge-pass">PASS</span>
+            <div><h3 data-i18n="e4.role">Software QA Engineer</h3><div class="org">Cash Plus (Mobile)</div></div>
+          </div>
+          <div class="head-right"><span class="when" data-i18n="e4.when">Avr. — Juin 2023</span><span class="chev">▸</span></div>
+        </div>
+        <div class="suite-body"><div class="suite-inner">
+          <p class="mission" data-i18n="e4.mission">Validation fonctionnelle et technique d'un portefeuille électronique intégrant l'Open Banking — tests API, UI/UX et automatisation.</p>
+          <ul class="tests">
+            <li data-i18n-html="e4.t1">valide les parcours d'un wallet mobile intégrant l'Open Banking</li>
+            <li data-i18n-html="e4.t2">couvre les tests API, UI/UX et l'automatisation</li>
+          </ul>
+          <div class="stack"><span class="chip">Appium</span><span class="chip">Katalon</span><span class="chip">Postman</span><span class="chip">React Native</span><span class="chip">MongoDB</span><span class="chip">Jira</span></div>
+        </div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag" data-i18n="skills.tag">// stack technique</div>
+      <h2 data-i18n="skills.title">Stack technique</h2>
+      <p class="sec-sub" data-i18n="skills.sub">Les outils du quotidien — de l'écriture des tests au déploiement continu.</p>
+    </div>
+    <div class="matrix">
+      <div class="module reveal"><div class="mh"><span class="ic">⟂</span><h4 data-i18n="m1">Test &amp; Automatisation</h4><span class="cnt">09</span></div>
+        <div class="tags"><span class="chip">Selenium</span><span class="chip">Selenide</span><span class="chip">Playwright</span><span class="chip">Cypress</span><span class="chip">Robot Framework</span><span class="chip">Katalon</span><span class="chip">Cucumber</span><span class="chip">JUnit</span><span class="chip">TestNG</span></div></div>
+      <div class="module reveal"><div class="mh"><span class="ic">⇄</span><h4 data-i18n="m2">Test d'API</h4><span class="cnt">04</span></div>
+        <div class="tags"><span class="chip">Postman</span><span class="chip">Karate</span><span class="chip">Swagger</span><span class="chip">SoapUI</span></div></div>
+      <div class="module reveal"><div class="mh"><span class="ic">↻</span><h4 data-i18n="m3">CI/CD &amp; Conteneurs</h4><span class="cnt">04</span></div>
+        <div class="tags"><span class="chip">GitLab CI/CD</span><span class="chip">Jenkins</span><span class="chip">Docker</span><span class="chip">Git</span></div></div>
+      <div class="module reveal"><div class="mh"><span class="ic">◫</span><h4 data-i18n="m4">Gestion des tests &amp; anomalies</h4><span class="cnt">04</span></div>
+        <div class="tags"><span class="chip">Jira</span><span class="chip">Xray</span><span class="chip">Squash</span><span class="chip">JMeter</span></div></div>
+      <div class="module reveal"><div class="mh"><span class="ic">{ }</span><h4 data-i18n="m5">Langages</h4><span class="cnt">07</span></div>
+        <div class="tags"><span class="chip">Java</span><span class="chip">JavaScript</span><span class="chip">Python</span><span class="chip">PHP</span><span class="chip">C/C++</span><span class="chip">.NET</span><span class="chip">Bash</span></div></div>
+      <div class="module reveal"><div class="mh"><span class="ic">⌘</span><h4 data-i18n="m6">Web &amp; Frameworks</h4><span class="cnt">08+</span></div>
+        <div class="tags"><span class="chip">React.js</span><span class="chip">Angular</span><span class="chip">Node.js</span><span class="chip">Express.js</span><span class="chip">Spring Boot</span><span class="chip">ASP.NET</span><span class="chip">Hibernate</span><span class="chip">RESTful APIs</span></div></div>
+      <div class="module reveal"><div class="mh"><span class="ic">⛁</span><h4 data-i18n="m7">Bases de données</h4><span class="cnt">09</span></div>
+        <div class="tags"><span class="chip">SQL</span><span class="chip">MySQL</span><span class="chip">PostgreSQL</span><span class="chip">Oracle</span><span class="chip">SQL Server</span><span class="chip">PL/SQL</span><span class="chip">MongoDB</span><span class="chip">Neo4j</span><span class="chip">SQLite</span></div></div>
+      <div class="module reveal"><div class="mh"><span class="ic">⚑</span><h4 data-i18n="m8">Méthodologies &amp; Gestion</h4><span class="cnt">07</span></div>
+        <div class="tags"><span class="chip">BDD</span><span class="chip">TDD</span><span class="chip">Smoke Testing</span><span class="chip">Sanity Testing</span><span class="chip">Agile</span><span class="chip">Scrum</span><span class="chip">Kanban</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag" data-i18n="edu.tag">// formation &amp; langues</div>
+      <h2 data-i18n="edu.title">Formation &amp; langues</h2>
+    </div>
+    <div class="split">
+      <div class="timeline reveal">
+        <div class="edu"><div class="yr">2021 — 2024</div><h4 data-i18n="ed1.t">Diplôme d'Ingénieur d'État — Ingénierie logicielle &amp; intégration des systèmes informatiques</h4><div class="school" data-i18n="ed.fst">Faculté des Sciences et Techniques, Mohammedia</div></div>
+        <div class="edu"><div class="yr">2019 — 2021</div><h4 data-i18n="ed2.t">DEUST — Mathématiques, Informatique &amp; Physique</h4><div class="school" data-i18n="ed.fst2">Faculté des Sciences et Techniques, Mohammedia</div></div>
+        <div class="edu"><div class="yr">2018 — 2019</div><h4 data-i18n="ed3.t">Baccalauréat en Sciences Mathématiques</h4><div class="school" data-i18n="ed3.s">Lycée Qualifiant Ibn Khaldoune</div></div>
+      </div>
+      <div class="reveal">
+        <div class="langs">
+          <h4 data-i18n="langs.title">Langues</h4>
+          <div class="lang"><div class="top"><b data-i18n="lng.ar">Arabe</b><span data-i18n="lvl.native">langue maternelle</span></div><div class="bar"><i data-w="100"></i></div></div>
+          <div class="lang"><div class="top"><b data-i18n="lng.fr">Français</b><span data-i18n="lvl.fluent">courant</span></div><div class="bar"><i data-w="90"></i></div></div>
+          <div class="lang"><div class="top"><b data-i18n="lng.en">Anglais</b><span data-i18n="lvl.work">bon niveau</span></div><div class="bar"><i data-w="72"></i></div></div>
+          <div class="cert">📜 <span data-i18n-html="cert">Bootcamp complet de test logiciel — <b>Udemy</b></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag" data-i18n="contact.tag">// restons en contact</div>
+      <h2 data-i18n="contact.title">Restons en contact</h2>
+      <p class="sec-sub" data-i18n="contact.sub">Ouvert aux missions QA, automatisation et qualité logicielle. Je réponds rapidement.</p>
+    </div>
+    <div class="contact-wrap reveal">
+      <form class="form" id="contactForm" novalidate>
+        <div class="fh">$ ./send-message</div>
+        <div class="field">
+          <label for="cf_name" data-i18n="f.name">Nom</label>
+          <input id="cf_name" name="name" type="text" data-i18n-ph="f.ph.name" placeholder="Votre nom" />
+        </div>
+        <div class="field">
+          <label for="cf_email" data-i18n="f.email">Email</label>
+          <input id="cf_email" name="email" type="email" data-i18n-ph="f.ph.email" placeholder="vous@exemple.com" />
+        </div>
+        <div class="field">
+          <label for="cf_message" data-i18n="f.msg">Message</label>
+          <textarea id="cf_message" name="message" data-i18n-ph="f.ph.msg" placeholder="Parlez-moi de votre projet ou de votre poste…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" data-i18n="f.send">Envoyer le message →</button>
+        <div class="form-msg" id="formMsg" aria-live="polite"></div>
+      </form>
+
+      <div class="contact-box">
+        <div class="contact-top" data-i18n="contact.or">$ ou contactez-moi directement</div>
+        <a class="cc" href="mailto:elmehdihassani2001@gmail.com"><span class="ci">✉</span><div><div class="lbl">EMAIL</div><div class="val">elmehdihassani2001@gmail.com</div></div></a>
+        <a class="cc wa" href="https://wa.me/212691242390?text=Bonjour%20Elmehdi%2C%20je%20vous%20contacte%20depuis%20votre%20portfolio." target="_blank" rel="noopener">
+          <span class="ci"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.88 1.21 3.08.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/></svg></span>
+          <div><div class="lbl">TEL/WHATSAPP</div><div class="val">+212 691 242 390</div></div>
+        </a>
+        <a class="cc" href="https://linkedin.com/in/elmehdi-hassani-760839225/" target="_blank" rel="noopener"><span class="ci">in</span><div><div class="lbl">LINKEDIN</div><div class="val">/elmehdi-hassani</div></div></a>
+        <a class="cc" href="https://github.com/HASSANI-ELMEHDI" target="_blank" rel="noopener"><span class="ci">⌥</span><div><div class="lbl">GITHUB</div><div class="val">/HASSANI-ELMEHDI</div></div></a>
+      </div>
+    </div>
+    <footer>
+      <span data-i18n="foot.l">© 2026 Elmehdi Hassani · construit &amp; déployé via <span class="ok">GitHub Actions</span></span>
+      <span data-i18n="foot.r"><span class="ok">●</span> toutes les suites validées · 0 échec</span>
+    </footer>
+  </div>
+</section>
+
+<a class="wa-float" href="https://wa.me/212691242390?text=Bonjour%20Elmehdi%2C%20je%20vous%20contacte%20depuis%20votre%20portfolio." target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.88 1.21 3.08.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/></svg>
+</a>
+
+<script>
+  var T = {
+    fr:{
+      "doc.title":"Elmehdi Hassani — Ingénieur QA & Automatisation",
+      "nav.profil":"profil","nav.exp":"parcours","nav.skills":"stack","nav.edu":"formation",
+      "hero.eyebrow":"Software QA Engineer · Maroc",
+      "hero.avail":"Disponible pour de nouvelles opportunités",
+      "hero.lede":"J'écris les tests qui empêchent les bugs d'atteindre la production. Automatisation, API, CI/CD — la qualité, validée à chaque commit.",
+      "hero.cta1":"Me contacter →","hero.cv":"Télécharger le CV ↓",
+      "about.tag":"// à propos","about.title":"À propos",
+      "about.bio":"Ingénieur QA passionné par la gestion de la qualité et l'automatisation des tests, toujours à la recherche de défis techniques à relever et d'opportunités pour innover.",
+      "stat.1":"missions QA & automatisation","stat.2":"secteurs : banque · télécom · fintech","stat.3":"frameworks de test maîtrisés","stat.4":"UI · API · CI/CD multi-pays",
+      "exp.tag":"// parcours professionnel","exp.title":"Expérience professionnelle",
+      "exp.sub":"Quatre missions, quatre contextes — banque, télécom et fintech. Cliquez sur une carte pour les détails.",
+      "e1.role":"Test Automation QA","e1.when":"Avr. 2025 — Présent",
+      "e1.mission":"Stratégie d'automatisation E2E pour des applications de gestion des agents de service client, déployées par pays dans un contexte Agile & CI/CD.",
+      "e1.t1":"conçoit et exécute des tests fonctionnels et API en BDD, gérés via <span>Xray</span>",
+      "e1.t2":"met en place une automatisation E2E multi-pays pour stabiliser les parcours critiques",
+      "e1.t3":"améliore en continu le pipeline CI/CD avec les équipes Dev, Métier et Ops internationales",
+      "e2.role":"Ingénieur QA","e2.when":"Fév. 2024 — Avr. 2025",
+      "e2.mission":"Stratégies d'automatisation pour optimiser la qualité et la performance des applications critiques d'un opérateur télécom français.",
+      "e2.t1":"définit et exécute une stratégie d'automatisation fiabilisant les applications métier",
+      "e2.t2":"analyse les exigences fonctionnelles et techniques pour concevoir des plans de test optimisés",
+      "e2.t3":"développe et maintient des tests <span>(Page Object Model, BDD, Data-Driven, Hybrid)</span>",
+      "e2.t4":"valide les API et l'intégration continue via GitLab CI/CD",
+      "e2.t5":"suit les anomalies et accélère les cycles de livraison",
+      "e3.role":"Ingénieur en Automatisation des Tests","e3.when":"Juin — Sept. 2023",
+      "e3.mission":"Création d'un robot d'automatisation des tests pour un progiciel bancaire.",
+      "e3.t1":"analyse en détail les spécifications fonctionnelles",
+      "e3.t2":"transforme les cas de test manuels en scripts <span>(Keyword-Driven, Data-Driven, Hybrid)</span>",
+      "e3.t3":"identifie et gère les anomalies de façon proactive",
+      "e3.t4":"conçoit des robots de génération automatique de scripts de test",
+      "e4.role":"Software QA Engineer","e4.when":"Avr. — Juin 2023",
+      "e4.mission":"Validation fonctionnelle et technique d'un portefeuille électronique intégrant l'Open Banking — tests API, UI/UX et automatisation.",
+      "e4.t1":"valide les parcours d'un wallet mobile intégrant l'Open Banking",
+      "e4.t2":"couvre les tests API, UI/UX et l'automatisation",
+      "skills.tag":"// stack technique","skills.title":"Stack technique",
+      "skills.sub":"Les outils du quotidien — de l'écriture des tests au déploiement continu.",
+      "m1":"Test & Automatisation","m2":"Test d'API","m3":"CI/CD & Conteneurs","m4":"Gestion des tests & anomalies","m5":"Langages","m6":"Web & Frameworks","m7":"Bases de données","m8":"Méthodologies & Gestion",
+      "edu.tag":"// formation & langues","edu.title":"Formation & langues",
+      "ed1.t":"Diplôme d'Ingénieur d'État — Ingénierie logicielle & intégration des systèmes informatiques",
+      "ed2.t":"DEUST — Mathématiques, Informatique & Physique",
+      "ed3.t":"Baccalauréat en Sciences Mathématiques",
+      "ed.fst":"Faculté des Sciences et Techniques, Mohammedia","ed.fst2":"Faculté des Sciences et Techniques, Mohammedia",
+      "ed3.s":"Lycée Qualifiant Ibn Khaldoune",
+      "langs.title":"Langues","lng.ar":"Arabe","lng.fr":"Français","lng.en":"Anglais",
+      "lvl.native":"langue maternelle","lvl.fluent":"courant","lvl.work":"bon niveau",
+      "cert":"Bootcamp complet de test logiciel — <b>Udemy</b>",
+      "contact.tag":"// restons en contact","contact.title":"Restons en contact",
+      "contact.sub":"Ouvert aux missions QA, automatisation et qualité logicielle. Je réponds rapidement.",
+      "contact.or":"$ ou contactez-moi directement",
+      "f.name":"Nom","f.email":"Email","f.msg":"Message","f.send":"Envoyer le message →",
+      "f.ph.name":"Votre nom","f.ph.email":"vous@exemple.com","f.ph.msg":"Parlez-moi de votre projet ou de votre poste…",
+      "f.fill":"Merci de remplir tous les champs.",
+      "f.ok":"Votre messagerie va s'ouvrir avec le message pré-rempli.",
+      "f.sent":"Merci, votre message a bien été envoyé !",
+      "f.err":"Une erreur est survenue. Réessayez ou écrivez-moi directement.",
+      "foot.l":"© 2026 Elmehdi Hassani · construit & déployé via <span class=\"ok\">GitHub Actions</span>",
+      "foot.r":"<span class=\"ok\">●</span> toutes les suites validées · 0 échec"
+    },
+    en:{
+      "doc.title":"Elmehdi Hassani — QA & Automation Engineer",
+      "nav.profil":"profile","nav.exp":"experience","nav.skills":"stack","nav.edu":"education",
+      "hero.eyebrow":"Software QA Engineer · Morocco",
+      "hero.avail":"Open to new opportunities",
+      "hero.lede":"I write the tests that stop bugs from reaching production. Automation, APIs, CI/CD — quality, validated on every commit.",
+      "hero.cta1":"Get in touch →","hero.cv":"Download CV ↓",
+      "about.tag":"// about","about.title":"About",
+      "about.bio":"QA engineer passionate about quality management and test automation — always looking for technical challenges to take on and opportunities to innovate.",
+      "stat.1":"QA & automation roles","stat.2":"industries: banking · telecom · fintech","stat.3":"test frameworks mastered","stat.4":"UI · API · multi-country CI/CD",
+      "exp.tag":"// professional journey","exp.title":"Professional experience",
+      "exp.sub":"Four roles, four contexts — banking, telecom and fintech. Click a card for the details.",
+      "e1.role":"Test Automation QA","e1.when":"Apr. 2025 — Present",
+      "e1.mission":"End-to-end test automation strategy for customer-service agent applications, deployed per country in an Agile & CI/CD environment.",
+      "e1.t1":"designs and runs functional and API tests in BDD, managed in <span>Xray</span>",
+      "e1.t2":"builds multi-country E2E automation to stabilize critical user journeys",
+      "e1.t3":"continuously improves the CI/CD pipeline with Dev, Business and international Ops teams",
+      "e2.role":"QA Engineer","e2.when":"Feb. 2024 — Apr. 2025",
+      "e2.mission":"Automation strategies to improve the quality and performance of critical applications for a French telecom operator.",
+      "e2.t1":"defines and runs an automation strategy that hardens business applications",
+      "e2.t2":"analyzes functional and technical requirements to design optimized test plans",
+      "e2.t3":"builds and maintains tests <span>(Page Object Model, BDD, Data-Driven, Hybrid)</span>",
+      "e2.t4":"validates APIs and continuous integration via GitLab CI/CD",
+      "e2.t5":"tracks defects and speeds up delivery cycles",
+      "e3.role":"Test Automation Engineer","e3.when":"Jun — Sep 2023",
+      "e3.mission":"Built a test-automation robot for a banking software suite.",
+      "e3.t1":"analyzes functional specifications in detail",
+      "e3.t2":"turns manual test cases into scripts <span>(Keyword-Driven, Data-Driven, Hybrid)</span>",
+      "e3.t3":"identifies and manages defects proactively",
+      "e3.t4":"designs robots that auto-generate test scripts",
+      "e4.role":"Software QA Engineer","e4.when":"Apr — Jun 2023",
+      "e4.mission":"Functional and technical validation of an e-wallet integrating Open Banking — API, UI/UX and automation testing.",
+      "e4.t1":"validates the journeys of a mobile wallet integrating Open Banking",
+      "e4.t2":"covers API, UI/UX and automation testing",
+      "skills.tag":"// technical stack","skills.title":"Technical stack",
+      "skills.sub":"The day-to-day toolkit — from writing tests to continuous deployment.",
+      "m1":"Testing & Automation","m2":"API Testing","m3":"CI/CD & Containers","m4":"Test & Defect Management","m5":"Languages","m6":"Web & Frameworks","m7":"Databases","m8":"Methodologies & Management",
+      "edu.tag":"// education & languages","edu.title":"Education & languages",
+      "ed1.t":"State Engineer's Degree — Software Engineering & Information Systems Integration",
+      "ed2.t":"University Diploma (DEUST) — Mathematics, Computer Science & Physics",
+      "ed3.t":"High School Diploma — Mathematical Sciences",
+      "ed.fst":"Faculty of Sciences and Techniques, Mohammedia","ed.fst2":"Faculty of Sciences and Techniques, Mohammedia",
+      "ed3.s":"Ibn Khaldoune High School",
+      "langs.title":"Languages","lng.ar":"Arabic","lng.fr":"French","lng.en":"English",
+      "lvl.native":"native","lvl.fluent":"fluent","lvl.work":"working proficiency",
+      "cert":"Complete Software Testing Bootcamp — <b>Udemy</b>",
+      "contact.tag":"// let's connect","contact.title":"Let's connect",
+      "contact.sub":"Open to QA, automation and software-quality roles. I reply quickly.",
+      "contact.or":"$ or reach me directly",
+      "f.name":"Name","f.email":"Email","f.msg":"Message","f.send":"Send message →",
+      "f.ph.name":"Your name","f.ph.email":"you@example.com","f.ph.msg":"Tell me about your project or role…",
+      "f.fill":"Please fill in all fields.",
+      "f.ok":"Your email app will open with the message ready.",
+      "f.sent":"Thanks, your message has been sent!",
+      "f.err":"Something went wrong. Try again, or email me directly.",
+      "foot.l":"© 2026 Elmehdi Hassani · built & deployed with <span class=\"ok\">GitHub Actions</span>",
+      "foot.r":"<span class=\"ok\">●</span> all suites passed · 0 failed"
+    }
+  };
+
+  var consoleLines = {
+    fr:[
+      '<span class="c-prompt">$</span> <span class="c-cmd">npm run test:portfolio</span>',
+      '<span class="c-dim">Running 1 suite — describe(\'Elmehdi Hassani\')</span>',
+      '<span class="c-pass"><span class="check">✓</span> automatise les parcours bancaires critiques</span>',
+      '<span class="c-pass"><span class="check">✓</span> valide les API Open Banking de bout en bout</span>',
+      '<span class="c-pass"><span class="check">✓</span> orchestre les pipelines CI/CD multi-pays</span>',
+      '<span class="c-pass"><span class="check">✓</span> transforme les cas manuels en scripts robustes</span>',
+      '<span class="c-pass"><span class="check">✓</span> stabilise les parcours E2E (UI · API · mobile)</span>',
+      '<span class="c-summary"><span class="ok">PASS</span>  5 tests · <span class="c-info">0 échec</span> · couverture 100%</span>',
+      '<span class="c-dim">Done in 1.42s — prêt à relever le prochain défi.</span>'
+    ],
+    en:[
+      '<span class="c-prompt">$</span> <span class="c-cmd">npm run test:portfolio</span>',
+      '<span class="c-dim">Running 1 suite — describe(\'Elmehdi Hassani\')</span>',
+      '<span class="c-pass"><span class="check">✓</span> automates critical banking journeys</span>',
+      '<span class="c-pass"><span class="check">✓</span> validates Open Banking APIs end-to-end</span>',
+      '<span class="c-pass"><span class="check">✓</span> orchestrates multi-country CI/CD pipelines</span>',
+      '<span class="c-pass"><span class="check">✓</span> turns manual cases into robust scripts</span>',
+      '<span class="c-pass"><span class="check">✓</span> stabilizes E2E journeys (UI · API · mobile)</span>',
+      '<span class="c-summary"><span class="ok">PASS</span>  5 tests · <span class="c-info">0 failed</span> · 100% coverage</span>',
+      '<span class="c-dim">Done in 1.42s — ready for the next challenge.</span>'
+    ]
+  };
+  var delays=[0,520,480,380,380,380,380,560,420];
+
+  var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var cbody = document.getElementById('cbody');
+  var lang = (navigator.language||'fr').toLowerCase().indexOf('en')===0 ? 'en':'fr';
+  var consoleRan = false, runId=0;
+
+  function appendPrompt(){
+    var c=document.createElement('div');c.className='c-line show';
+    c.innerHTML='<span class="c-prompt">$</span> <span class="caret"></span>';cbody.appendChild(c);
+  }
+  function renderConsole(animate){
+    var myRun=++runId;
+    cbody.innerHTML='';
+    var L=consoleLines[lang];
+    if(!animate||reduce){ for(var k=0;k<L.length;k++){var e=document.createElement('div');e.className='c-line show';e.innerHTML=L[k];cbody.appendChild(e);} appendPrompt(); return; }
+    var i=0;
+    (function next(){
+      if(myRun!==runId) return;
+      if(i>=L.length){appendPrompt();return;}
+      var e=document.createElement('div');e.className='c-line';e.innerHTML=L[i];cbody.appendChild(e);
+      requestAnimationFrame(function(){e.classList.add('show');});
+      var d=delays[i]||320;i++;setTimeout(next,d);
+    })();
+  }
+  function apply(l){
+    lang=l;document.documentElement.lang=l;
+    if(T[l]['doc.title']) document.title=T[l]['doc.title'];
+    var els=document.querySelectorAll('[data-i18n]');
+    for(var i=0;i<els.length;i++){var k=els[i].getAttribute('data-i18n'); if(T[l][k]!=null) els[i].textContent=T[l][k];}
+    var elsh=document.querySelectorAll('[data-i18n-html]');
+    for(var j=0;j<elsh.length;j++){var kh=elsh[j].getAttribute('data-i18n-html'); if(T[l][kh]!=null) elsh[j].innerHTML=T[l][kh];}
+    var elsp=document.querySelectorAll('[data-i18n-ph]');
+    for(var q=0;q<elsp.length;q++){var kp=elsp[q].getAttribute('data-i18n-ph'); if(T[l][kp]!=null) elsp[q].setAttribute('placeholder',T[l][kp]);}
+    var btns=document.querySelectorAll('.lang-toggle button');
+    for(var b=0;b<btns.length;b++){btns[b].classList.toggle('active',btns[b].getAttribute('data-lang')===l);}
+  }
+
+  apply(lang);
+  if(reduce){ renderConsole(false); consoleRan=true; }
+  else { setTimeout(function(){renderConsole(true);consoleRan=true;},350); }
+
+  var tbtns=document.querySelectorAll('.lang-toggle button');
+  for(var t=0;t<tbtns.length;t++){
+    tbtns[t].addEventListener('click',function(){
+      var l=this.getAttribute('data-lang'); if(l===lang) return;
+      apply(l); renderConsole(false);
+    });
+  }
+
+  var heads=document.querySelectorAll('.suite-head');
+  for(var h=0;h<heads.length;h++){ heads[h].addEventListener('click',function(){this.parentElement.classList.toggle('open');}); }
+
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);
+      e.target.querySelectorAll('.bar i').forEach(function(bar){bar.style.width=bar.dataset.w+'%';}); } });
+  },{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  if(reduce) document.querySelectorAll('.bar i').forEach(function(b){b.style.width=b.dataset.w+'%';});
+
+  var mb=document.getElementById('menuBtn'), nl=document.getElementById('navLinks');
+  mb.addEventListener('click',function(){nl.classList.toggle('open');});
+  nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nl.classList.remove('open');});});
+
+  /* ---- Contact form ----
+     Pour recevoir les messages directement par email sans rien gérer,
+     créez un formulaire gratuit sur https://formspree.io et collez son
+     endpoint ci-dessous (ex: "https://formspree.io/f/abcdwxyz").
+     Laissé vide => le formulaire ouvre la messagerie pré-remplie. */
+  var FORMSPREE_ENDPOINT = "";
+  var form=document.getElementById('contactForm');
+  var box=document.getElementById('formMsg');
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var name=document.getElementById('cf_name').value.trim();
+    var email=document.getElementById('cf_email').value.trim();
+    var msg=document.getElementById('cf_message').value.trim();
+    if(!name||!email||!msg){ box.textContent=T[lang]['f.fill']; box.className='form-msg err'; return; }
+    if(FORMSPREE_ENDPOINT){
+      box.textContent='…'; box.className='form-msg';
+      fetch(FORMSPREE_ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)})
+        .then(function(r){ if(r.ok){ form.reset(); box.textContent=T[lang]['f.sent']; box.className='form-msg ok'; }
+          else { box.textContent=T[lang]['f.err']; box.className='form-msg err'; } })
+        .catch(function(){ box.textContent=T[lang]['f.err']; box.className='form-msg err'; });
+    } else {
+      var subj=encodeURIComponent('Contact portfolio — '+name);
+      var body=encodeURIComponent(msg+'\n\n— '+name+' ('+email+')');
+      window.location.href='mailto:elmehdihassani2001@gmail.com?subject='+subj+'&body='+body;
+      box.textContent=T[lang]['f.ok']; box.className='form-msg ok';
+    }
+  });
+</script>
+</body>
+</html>
