@@ -1,18 +1,15 @@
 name: Deploy portfolio to GitHub Pages
 
-# Déploie automatiquement le site à chaque push sur la branche main.
 on:
   push:
     branches: [main]
-  workflow_dispatch:        # permet aussi un déclenchement manuel
+  workflow_dispatch:
 
-# Permissions requises par GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Une seule exécution à la fois ; on n'annule pas un déploiement en cours
 concurrency:
   group: pages
   cancel-in-progress: false
@@ -33,7 +30,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # On publie tout le dépôt (site statique : index.html + assets/)
           path: .
 
       - name: Deploy to GitHub Pages
